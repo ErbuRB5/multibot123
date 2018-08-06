@@ -72,7 +72,11 @@ client.on("message", (message) => {
           value: "*Sale del canal de voz.*"
         },
         {
-          name: "**→ mb.addrole [usuario] [nombre del role]**",
+          name: "**→ mb.say [mensaje]**",
+          value: "*Dice el mensaje que le indiques.*"
+        },
+        {
+          name: "**→ mb.giverole [usuario] [nombre del role]**",
           value: "*Añade un role a un usuario específico.*"
         },
         {
@@ -84,6 +88,10 @@ client.on("message", (message) => {
           value: "*Reproduce una radio aleatoria.*"
         },
         {
+          name: "**→ mb.embed [mensaje]**",
+          value: "*Genera un emblema con el mensaje que le indiques.*"
+        },
+        {
           name: "**→ mb.user [usuario]**",
           value: "*Muestra información sobre un usuario en específico.*"
         },
@@ -92,7 +100,7 @@ client.on("message", (message) => {
       timestamp: new Date(),
       footer: {
         icon_url: client.user.avatarURL,
-        text: "MultiBot 1.02 by SirErbu"
+        text: "MultiBot 1.01 by SirErbu#2604"
       }
     }
 });
@@ -204,7 +212,19 @@ if (message.content. startsWith(prefix + 'join')) {
 
   /////////////////////////////////////////////////////////////////////////////
 
-      // mb.giverole
+  // mb.say
+
+  if(message.content.startsWith(prefix + 'say')){
+    const content = message.content.split(' ').slice(1);
+    const args = content.join(' ');
+    if(!args) return message.channel.send(`¿Qué digo?`);
+    message.channel.send(`${args}`);
+
+  }
+
+      /////////////////////////////////////////////////////////////////////////////
+
+      // mb.addrole
 
   if(message.content.startsWith(prefix + 'giverole')){
 
@@ -309,7 +329,16 @@ if (message.content. startsWith(prefix + 'join')) {
       .catch(console.error);
   }
  /////////////////////////////////////////////////////////////////////////////
+    //mb.embed
 
+  if (message.content.startsWith(prefix +"embed")){
+    const content = message.content.split(' ').slice(1);
+    const args = content.join(' ');
+	if(!args) return message.channel.send(`¿Qué digo?`);
+    message.channel.send({embed: {
+      color: 3447003,
+      description: `${args}`
+    }});
   };
 });
       /////////////////////////////////////////////////////////////////////////////
