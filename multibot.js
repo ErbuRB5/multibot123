@@ -28,7 +28,7 @@ client.on("message", (message) => {
     message.channel.send(":ping_pong: Pong!")
       .then(m => {
 
-          m.edit(`:incoming_envelope: Ping respuesta: \`${Math.floor(mensajes/100)} ms\`\n:satellite_orbital: Ping DiscordAPI: \`${ping} ms\``);
+          m.edit(`:incoming_envelope: Ping de respuesta: \`${Math.floor(mensajes/100)} ms\`\n:satellite_orbital: Ping de DiscordAPI: \`${ping} ms\``);
       
       });
     
@@ -48,55 +48,51 @@ client.on("message", (message) => {
           icon_url: client.user.avatarURL
       },
       fields: [{
-          name: "**mb.ping**",
+          name: "**→ mb.ping**",
           value: "*Muestra el tiempo de respuesta del bot.*"
         },
         {
-          name: "**mb.help**",
+          name: "**→ mb.help**",
           value: "*Muestra este menú.*"
         },
         {
-          name: "**mb.server**",
-          value: "Muestra las estadísticas del servidor."
+          name: "**→ mb.server**",
+          value: "*Muestra las estadísticas del servidor.*"
         },
         {
-          name: "**mb.avatar [usuario]**",
+          name: "**→ mb.avatar [usuario]**",
           value: "*Muestra la foto de perfil de un usuario.*"
         },
         {
-          name: "**mb.join**",
+          name: "**→ mb.join**",
           value: "*Entra al canal de voz en el que estés.*"
         },
         {
-          name: "**mb.leave**",
+          name: "**→ mb.leave**",
           value: "*Sale del canal de voz.*"
         },
         {
-          name: "**mb.ytplay [URL]**",
-          value: "*Reproduce una URL de YouTube.*"
-        },
-        {
-          name: "**mb.say [mensaje]**",
+          name: "**→ mb.say [mensaje]**",
           value: "*Dice el mensaje que le indiques.*"
         },
         {
-          name: "**mb.addrole [usuario] [nombre del role]**",
+          name: "**→ mb.addrole [usuario] [nombre del role]**",
           value: "*Añade un role a un usuario específico.*"
         },
         {
-          name: "**mb.rolemembers [nombre del role]**",
+          name: "**→ mb.memberlist [nombre del role]**",
           value: "*Muestra los usuarios pertenecientes a un rol específico.*"
         },
         {
-          name: "**mb.radio**",
+          name: "**→ mb.radio**",
           value: "*Reproduce una radio aleatoria.*"
         },
         {
-          name: "**mb.embed [mensaje]**",
+          name: "**→ mb.embed [mensaje]**",
           value: "*Genera un emblema con el mensaje que le indiques.*"
         },
         {
-          name: "**mb.user [usuario]**",
+          name: "**→ mb.user [usuario]**",
           value: "*Muestra información sobre un usuario en específico.*"
         },
 
@@ -143,7 +139,7 @@ if(message.content.startsWith(prefix + 'server')){
 
       } else if (img.avatarURL === null) {
 
-          message.channel.sendMessage("El usuario ("+ img.username +") no tiene avatar!");
+          message.channel.sendMessage("¡El usuario ("+ img.username +") no tiene avatar!");
 
       } else {
 
@@ -228,9 +224,9 @@ if (message.content. startsWith(prefix + 'join')) {
 
       /////////////////////////////////////////////////////////////////////////////
 
-      // mb.addrol
+      // mb.addrole
 
-  if(message.content.startsWith(prefix + 'addrol')){
+  if(message.content.startsWith(prefix + 'giverole')){
 
     const content = message.content.split(' ').slice(1);
     const args = content.join(' ');
@@ -241,10 +237,10 @@ if (message.content. startsWith(prefix + 'join')) {
     let role = message.guild.roles.find("name", nombrerol);
     let perms = message.member.hasPermission("MANAGE_ROLES_OR_PERMISSIONS");
 
-    if(!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
+    if(!perms) return message.channel.send("`Error` `|` No tienes permisos para usar este comando.");
      
     if(message.mentions.users.size < 1) return message.reply('Debe mencionar a un miembro.').catch(console.error);
-    if(!nombrerol) return message.channel.send('Escriba el nombre del rol a agregar, `-addrol @username [rol]`');
+    if(!nombrerol) return message.channel.send('Escriba el nombre del rol a dar, `-giverole @usuario [rol]`');
     if(!role) return message.channel.send('Rol no encontrado en el servidor.');
     
     miembro.addRole(role).catch(console.error);
@@ -289,25 +285,26 @@ if (message.content. startsWith(prefix + 'join')) {
   }
 
   /////////////////////////////////////////////////////////////////////////////
-  if (message.content.startsWith(prefix +"setGame")) {
+  
+  // mb.setGame
+  
+  if (message.content.startsWith(prefix +"setgame")) {
   const content = message.content.split(' ').slice(1);
   const args = content.join(' ');
+    let miembro = message.mentions.members.first();
+    let perms = message.member.hasPermission("MANAGE_ROLES_OR_PERMISSIONS");
+	if(!perms) return message.channel.send("`Error` `|` No tienes permisos para usar este comando.");
   client.user.setGame(`${args}`);
   message.channel.send(`:white_check_mark: | Mi estado ha sido cambiado a **${args}**.`);
 
 }
-     
-
-    //mb.hola
-
-  if (message.content.startsWith(prefix +"hola")) {
-    message.channel.send("Hola que tal?");
-  }
+	  
 
     /////////////////////////////////////////////////////////////////////////////
      
-     // mb.rolemembers
-    if(message.content.startsWith(prefix + 'rolemembers')){
+     // mb.memberlist
+	 
+    if(message.content.startsWith(prefix + 'memberlist')){
     const content = message.content.split(' ').slice(1);
     const args = content.join(' ');
     if(!args) return message.channel.send('Ingrese nombre del rol.');
@@ -317,13 +314,16 @@ if (message.content. startsWith(prefix + 'join')) {
     message.channel.send(`Tienes a **${miembroroles.size}** miembro(s) con el rol **${args}**.`);
     
   }
+    /////////////////////////////////////////////////////////////////////////////
+	
+	// mb.radio
 
  if (message.content.startsWith(prefix + 'radio')) {
     let voiceChannel = message.member.voiceChannel;
     if(!voiceChannel) return message.channel.send('¡Necesitas unirte a un canal de voz primero!');
         voiceChannel.join().then(conexion =>{
         conexion.playStream('http://stream.electroradio.fm:80/192k/;');
-        message.channel.send('Radio electro activado.')
+        message.channel.send('Radio electro activada.')
         return;
       })
       .catch(console.error);
@@ -335,6 +335,7 @@ if (message.content. startsWith(prefix + 'join')) {
   if (message.content.startsWith(prefix +"embed")){
     const content = message.content.split(' ').slice(1);
     const args = content.join(' ');
+	if(!args) return message.channel.send(`¿Qué digo?`);
     message.channel.send({embed: {
       color: 3447003,
       description: `${args}`
@@ -342,9 +343,6 @@ if (message.content. startsWith(prefix + 'join')) {
 
       /////////////////////////////////////////////////////////////////////////////
 
-
-
-}
 
 });
 
