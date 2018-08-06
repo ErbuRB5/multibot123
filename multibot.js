@@ -329,7 +329,6 @@ if (message.content. startsWith(prefix + 'join')) {
       .catch(console.error);
   }
  /////////////////////////////////////////////////////////////////////////////
-
     //mb.embed
 
   if (message.content.startsWith(prefix +"embed")){
@@ -340,10 +339,9 @@ if (message.content. startsWith(prefix + 'join')) {
       color: 3447003,
       description: `${args}`
     }});
-
+  };
+});
       /////////////////////////////////////////////////////////////////////////////
 
-
-});
 
 client.login(config.token);     
