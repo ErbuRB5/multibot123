@@ -192,24 +192,37 @@ if (message.content. startsWith(prefix + 'join')) {
 
   /////////////////////////////////////////////////////////////////////////////
 
-  // mb.ytplay
+  // mb.play
 
-  if (message.content.startsWith(prefix + 'ytplay')) {
-    const ytdl = require('ytdl-core');
-
-    let voiceChannel = message.member.voiceChannel;
-    if(!voiceChannel) return message.channel.send('Necesitas unirte a un canal de voz primero!');
-    if(!args) return message.channel.send('Ingrese un enlace de youtube para poder reproducirlo.');
-    voiceChannel.join()
-      .then(connection => {
-        const url = ytdl(args, { filter : 'audioonly' });
-        const dispatcher = connection.playStream(url);
-        message.channel.send('Reproduciendo ahora: '+ args);
-        message.delete();
-      })
-      .catch(console.error);
-  }
-
+  if (message.content.startsWith(prefix + 'play')) {
+   if (!msg.member.voiceChannel) return msg.channel.send('<:tick:445752370324832256> No estás en un canal de voz.');
+			if (!msg.member.voiceChannel.joinable) return msg.channel.send("<:tick:445752370324832256> No puedo reproducir música en este canal :(");
+			if (!suffix) {
+				embed.setDescription("• Inserta una radio para reproducir.\n\n`[-]` **Radios disponibles:** `Rap, jazz & dubstep`");
+				embed.setColor("#b92727");
+				return msg.channel.send({ embed });
+			}
+			let radio; // Empty Variable
+			if (suffix.toLowerCase() == "rap") {
+				radio = "A-RAP-FM-WEB";
+			} else if (suffix.toLowerCase() == "jazz") {
+				radio = "WineFarmAndTouristradio";
+			} else if (suffix.toLowerCase() == "dubstep") {
+				radio = "ELECTROPOP-MUSIC";
+			} else {
+				embed.setDescription("• Inserta una radio correcta para reproducir.\n\n`[-]` **Radios disponibles:** `Rap, jazz & dubstep`");
+				embed.setColor("#b92727");
+				return msg.channel.send({ embed });
+			}
+			msg.member.voiceChannel.join().then(connection => {
+				require('http').get("http://streaming.radionomy.com/" + radio, (res) => {
+					connection.playStream(res);
+					embed.setColor("#b92727");
+					embed.setDescription("<:tick2:445752599631888384> ¡Reproduciendo correctamente!");
+					msg.channel.send({ embed });
+				});
+			}).catch(err => "<:tick:445752370324832256> **Error:** ```\n" + err + "```");
+			}
   /////////////////////////////////////////////////////////////////////////////
 
   // mb.say
