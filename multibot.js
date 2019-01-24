@@ -100,7 +100,7 @@ client.on("message", (message) => {
       timestamp: new Date(),
       footer: {
         icon_url: client.user.avatarURL,
-        text: "MultiBot 1.01 by SirErbu#2604"
+        text: "MultiBot " + config.version + " by SirErbu#2604"
       }
     }
 });
@@ -198,7 +198,7 @@ if (message.content. startsWith(prefix + 'join')) {
     const ytdl = require('ytdl-core');
 
     let voiceChannel = message.member.voiceChannel;
-    if(!voiceChannel) return message.channel.send('¡Necesitas unirte a un canal de voz primero!.');
+    if(!voiceChannel) return message.channel.send('Necesitas unirte a un canal de voz primero!');
     if(!args) return message.channel.send('Ingrese un enlace de youtube para poder reproducirlo.');
     voiceChannel.join()
       .then(connection => {
