@@ -100,7 +100,7 @@ client.on("message", (message) => {
       timestamp: new Date(),
       footer: {
         icon_url: client.user.avatarURL,
-        text: config.botName + " " + config.version + " " + config.ownerName
+        text: config.botName + " " + config.version + " by " + config.ownerName
       }
     }
 });
