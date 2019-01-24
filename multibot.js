@@ -100,7 +100,7 @@ client.on("message", (message) => {
       timestamp: new Date(),
       footer: {
         icon_url: client.user.avatarURL,
-        text: "MultiBot " + config.version + " by SirErbu#2604"
+        text: config.botName + " " + config.version + " " + config.owner
       }
     }
 });
