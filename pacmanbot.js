@@ -44,6 +44,8 @@ const commands = {
 			}).catch(() => "<:tick:445752370324832256> No estoy en un canal de voz.");
 		}
 	},
+	"avatar": {
+	}
 	"play": {
 		process: function (msg, suffix, embed) {
 			if (!msg.member.voiceChannel) return msg.channel.send('<:tick:445752370324832256> No estas en un canal de voz.');
