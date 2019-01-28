@@ -136,7 +136,11 @@ bot.on('message', function (msg) {
       		const command = msg.content.split(" ")[0].substring(config.prefix.length); // Command
       		const suffix = msg.content.substring(command.length + config.prefix.length + 1); // Arguments
       		const embed = new Discord.RichEmbed(); // Gets Rich Embed
-
+		const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+  // Do nothing if the channel wasn't found on this server
+ 		 if (!channel) return;
+  // Send the message, mentioning the member
+ 		 channel.send(`Bienvenido al servidor, ${member}`);
       		if (!commands[command]) return; // Return if the command doesn't exists
       		try {
 			commands[command].process(msg, suffix, embed); // Execute the command
