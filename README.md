@@ -1,1 +1,1 @@
-# multibot123
+# pacmanbot
