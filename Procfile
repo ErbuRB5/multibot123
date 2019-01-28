@@ -1,1 +1,1 @@
-worker: node multibot.js
+worker: node pacmanbot.js
