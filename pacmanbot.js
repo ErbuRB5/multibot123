@@ -11,24 +11,24 @@ const commands = {
 	"help": {
 		process: function (msg, suffix, embed) {
 			const list = ["```perl",
-			"br!help #Sends this help message",
-			"br!join #Join to your voice channel",
-			"br!leave #Exit the voice channel",
-			"br!play <rap/jazz/dubstep> #Play a specific radio",
-			"br!invite #Generate an invitation link to invite me to your server```",
-			"Hi! I'm **Baba Radio**, a simple bot focused on play music. I'm developed by `perronosaurio (Waxtz)#1767`"]
+			"v.help #Para enviar este mensaje",
+			"v.join #Para entrar al canal de voz",
+			"v.leave #Para salir del canal de voz",
+			"v.play <rap/jazz/dubstep> #Para poner una radio especifica",
+			"v.invite #Genera una invitacion para que puedas añadirme a otros servidores```",
+			"Hey! Soy **PacmanBot**, un bot simple centrado en musica. Estoy siendo desarrollado por `~SirErbu~#2604`"]
 			embed.setDescription(list);
-			embed.setAuthor("Command list!", "https://cdn.discordapp.com/attachments/330739726321713153/451061091322298378/jajajaxdxdxd.png");
+			embed.setAuthor("Lista de comandos!", "https://cdn.discordapp.com/attachments/330739726321713153/451061091322298378/jajajaxdxdxd.png");
 			embed.setColor("#b92727");
 			msg.channel.send({ embed });
 		}
   	},
 	"join": {
 		process: function (msg, suffix, embed) {
-			if (!msg.member.voiceChannel) return msg.channel.send('<:tick:445752370324832256> You are not on a voice channel.');
-			if (!msg.member.voiceChannel.joinable) return msg.channel.send("<:tick:445752370324832256> I\'m unable to play music in this channel.");
+			if (!msg.member.voiceChannel) return msg.channel.send('<:tick:445752370324832256> No estas en un canal de voz.');
+			if (!msg.member.voiceChannel.joinable) return msg.channel.send("<:tick:445752370324832256> No puedo reproducir musica en este canal de voz.");
 			msg.member.voiceChannel.join().then(() => {
-				embed.setDescription("<:tick2:445752599631888384> Successfully joined!");
+				embed.setDescription("<:tick2:445752599631888384> He entrado correctamente!");
 				embed.setColor("#b92727");
 				msg.channel.send({ embed });
         		});
@@ -36,20 +36,20 @@ const commands = {
 	},
 	"leave": {
 		process: function (msg, suffix) {
-			if (!msg.member.hasPermission("MANAGE_GUILD")) return msg.channel.send("<:tick:445752370324832256> You do not have sufficient permissions.");
+			if (!msg.member.hasPermission("MANAGE_GUILD")) return msg.channel.send("<:tick:445752370324832256> No tienes suficientes permisos.");
 			msg.member.voiceChannel.leave().then(() => {
-				embed.setDescription("<:tick2:445752599631888384> Successfully joined!");
+				embed.setDescription("<:tick2:445752599631888384> He entrado correctamente!");
 				embed.setColor("#b92727");
 				msg.channel.send({ embed });
-			}).catch(() => "<:tick:445752370324832256> I'm not in a voice channel.");
+			}).catch(() => "<:tick:445752370324832256> No estoy en un canal de voz.");
 		}
 	},
 	"play": {
 		process: function (msg, suffix, embed) {
-			if (!msg.member.voiceChannel) return msg.channel.send('<:tick:445752370324832256> You are not on a voice channel.');
-			if (!msg.member.voiceChannel.joinable) return msg.channel.send("<:tick:445752370324832256> I\'m unable to play music in this channel.");
+			if (!msg.member.voiceChannel) return msg.channel.send('<:tick:445752370324832256> No estas en un canal de voz.');
+			if (!msg.member.voiceChannel.joinable) return msg.channel.send("<:tick:445752370324832256> No puedo reproducir musica en este canal.");
 			if (!suffix) {
-				embed.setDescription("• Insert a correct radio to play.\n\n`[-]` **Available radios:** `Rap, jazz & dubstep`");
+				embed.setDescription("• Inserta una radio disponible.\n\n`[-]` **Radios disponibles:** `Rap, jazz & dubstep`");
 				embed.setColor("#b92727");
 				return msg.channel.send({ embed });
 			}
@@ -61,7 +61,7 @@ const commands = {
 			} else if (suffix.toLowerCase() == "dubstep") {
 				radio = "ELECTROPOP-MUSIC";
 			} else {
-				embed.setDescription("• Insert a correct radio to play.\n\n`[-]` **Available radios:** `Rap, jazz & dubstep`");
+				embed.setDescription("• Inserta una radio disponible.\n\n`[-]` **Radios disponibles:** `Rap, jazz & dubstep`");
 				embed.setColor("#b92727");
 				return msg.channel.send({ embed });
 			}
@@ -77,7 +77,7 @@ const commands = {
 	},
 	"invite": {
 		process: function (msg, suffix) {
-			embed.setDescription("**Invite link:** `https://discordapp.com/oauth2/authorize?client_id=273463982625652737&scope=bot&permissions=314497");
+			embed.setDescription("**Link de invitacion:** `https://discordapp.com/api/oauth2/authorize?client_id=357584581530222592&permissions=8&scope=bot");
       			embed.setColor("#b92727");
      			msg.channel.send({ embed });
 		}
@@ -86,9 +86,9 @@ const commands = {
 
 // Ready Event
 bot.on("ready", function () {
-	console.log("[*] Logged in " + bot.guilds.array().length + " servers!");
+	console.log("[*] Estoy en " + bot.guilds.array().length + " servidores!");
 	setInterval(function() {
-  		bot.user.setActivity(config.prefix + "help | " + bot.guilds.array().length + " servers!");
+  		bot.user.setActivity(config.prefix + "help | " + bot.guilds.array().length + " servidores!");
   	}, 100000)
 });
 
