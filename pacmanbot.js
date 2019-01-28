@@ -4,7 +4,7 @@ const config = require("./config.json");
 
 client.on("ready", () => {
    console.log("Estoy listo!");
-   client.user.setGame(`:v.help | 24/7 | ${client.guilds.size} servidores`);
+   client.user.setGame(`v.help | 24/7 | ${client.guilds.size} servidores`);
 });
 var prefix = config.prefix;
 
